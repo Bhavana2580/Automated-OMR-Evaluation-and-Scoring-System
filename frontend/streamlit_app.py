@@ -1,6 +1,12 @@
 import sys
 import os
 from pathlib import Path
+import streamlit as st
+import requests
+import json
+from PIL import Image
+import io
+import numpy as np
 
 # ===== DEBUG: PRINT EVERYTHING =====
 print("=== DEBUG INFORMATION ===")
