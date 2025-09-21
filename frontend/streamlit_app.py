@@ -1,6 +1,3 @@
-import sys
-import os
-from pathlib import Path
 import streamlit as st
 import requests
 import json
@@ -8,62 +5,13 @@ from PIL import Image
 import io
 import numpy as np
 
+# Simple import - Backend is now in the same directory
+from Backend.db.database import SessionLocal
 
-
-# Check if __init__.py exists in db
-db_init = os.path.join(backend_path, "db", "__init__.py")
-print(f"Backend/db/__init__.py exists: {os.path.exists(db_init)}")
-
-# List all files in Backend
-print("All files in Backend:")
-for file in os.listdir(backend_path):
-    print(f"  - {file}")
-
-# List all files in db
-db_path = os.path.join(backend_path, "db")
-print("All files in db:")
-for file in os.listdir(db_path):
-    print(f"  - {file}")
-
-# Try to import manually
-print("Trying manual import...")
-try:
-    # Add parent directory instead
-    parent_path = r"C:\Users\HP\Desktop\Automated OMR Evaluation and Scoring System"
-    sys.path.insert(0, parent_path)
-    
-    from Backend.db.database import SessionLocal
-    print("✅ SUCCESS: Import worked with parent path!")
-    
-except ImportError as e:
-    print(f"❌ FAILED: {e}")
-    
-    # Try absolute import
-    try:
-        import importlib.util
-        spec = importlib.util.spec_from_file_location("database", os.path.join(backend_path, "db", "database.py"))
-        database = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(database)
-        SessionLocal = database.SessionLocal
-        print("✅ SUCCESS: Direct file import worked!")
-    except Exception as e2:
-        print(f"❌ FAILED direct import: {e2}")
-        # Exit if all imports fail
-        sys.exit(1)
-
-# ===== STREAMLIT APP =====
-import streamlit as st
-import requests
-import json
-from PIL import Image
-import io
-import numpy as np
-
-# Backend API URL
+# Backend URL for Streamlit Cloud (runs in same container)
 BACKEND_URL = "http://localhost:8003"
 
 st.set_page_config(page_title="OMR Evaluation System", page_icon="📝", layout="wide")
-
 st.title("📝 Automated OMR Evaluation System")
 st.markdown("Upload OMR answer sheets for automatic evaluation and scoring")
 
@@ -141,14 +89,6 @@ if uploaded_file is not None:
                         if result.get('raw_answers'):
                             st.write("**Answers:**")
                             st.json(result['raw_answers'])
-                    
-                    # Show overlay image if available
-                    if result.get('overlay_image_url'):
-                        st.write("**Processed Image:**")
-                        overlay_response = requests.get(f"{BACKEND_URL}{result['overlay_image_url']}")
-                        if overlay_response.status_code == 200:
-                            overlay_img = Image.open(io.BytesIO(overlay_response.content))
-                            st.image(overlay_img, caption="Processed OMR with detections", use_column_width=True)
                 
                 else:
                     st.error(f"❌ Error: {response.text}")
