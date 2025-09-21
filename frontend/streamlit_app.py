@@ -8,17 +8,7 @@ from PIL import Image
 import io
 import numpy as np
 
-# ===== DEBUG: PRINT EVERYTHING =====
-print("=== DEBUG INFORMATION ===")
 
-# Check the exact backend path
-backend_path = r"C:\Users\HP\Desktop\Automated OMR Evaluation and Scoring System\Backend"
-print(f"Backend path: {backend_path}")
-print(f"Path exists: {os.path.exists(backend_path)}")
-
-# Check if __init__.py exists in Backend
-backend_init = os.path.join(backend_path, "__init__.py")
-print(f"Backend/__init__.py exists: {os.path.exists(backend_init)}")
 
 # Check if __init__.py exists in db
 db_init = os.path.join(backend_path, "db", "__init__.py")
