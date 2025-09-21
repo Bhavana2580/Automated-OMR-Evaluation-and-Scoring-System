@@ -8,15 +8,9 @@ import numpy as np
 # Simple import - Backend is now in the same directory
 from Backend.db.database import SessionLocal
 
-# Dynamic backend URL - different for local vs Streamlit Cloud
-IS_STREAMLIT_CLOUD = os.environ.get('STREAMLIT_SERVER_IS_RUNNING_ON_STREAMLIT_CLOUD', False)
 
-if IS_STREAMLIT_CLOUD:
-    # Production: Backend runs on port 8000 in same container
-    BACKEND_URL = "http://localhost:8000"
-else:
     # Local development: Backend runs on port 8003
-    BACKEND_URL = "http://localhost:8003"
+BACKEND_URL = "http://localhost:8000"
 
 st.set_page_config(page_title="OMR Evaluation System", page_icon="📝", layout="wide")
 st.title("📝 Automated OMR Evaluation System")
