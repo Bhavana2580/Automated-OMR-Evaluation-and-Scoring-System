@@ -1,0 +1,13 @@
+# Frontend dependencies
+streamlit
+requests
+pillow
+numpy
+
+# Backend dependencies (copy from your backend/requirements.txt)
+fastapi
+uvicorn
+sqlalchemy
+python-multipart
+opencv-python
+pydantic
