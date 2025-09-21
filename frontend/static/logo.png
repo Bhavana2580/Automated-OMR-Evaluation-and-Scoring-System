@@ -1,0 +1,18 @@
+# generate_logo.py
+from PIL import Image, ImageDraw, ImageFont
+
+# Create blank image
+width, height = 300, 100
+img = Image.new('RGB', (width, height), color=(0, 123, 255))  # blue background
+
+# Draw text
+draw = ImageDraw.Draw(img)
+try:
+    font = ImageFont.truetype("arial.ttf", 40)
+except:
+    font = ImageFont.load_default()
+draw.text((20, 25), "OMR LABS", fill="white", font=font)
+
+# Save logo
+img.save("frontend/static/logo.png")
+print("✅ Logo saved at frontend/static/logo.png")

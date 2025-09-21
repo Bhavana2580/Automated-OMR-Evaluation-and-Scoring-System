@@ -1,0 +1,18 @@
+{
+  "name": "omr-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for Automated OMR Evaluation System",
+  "main": "streamlit_app.py",
+  "scripts": {
+    "start": "streamlit run frontend/streamlit_app.py"
+  },
+  "dependencies": {
+    "streamlit": "^1.27.0",
+    "pandas": "^2.1.0",
+    "opencv-python": "^4.8.0",
+    "numpy": "^1.26.0",
+    "sqlalchemy": "^2.2.0"
+  },
+  "author": "G.Bhavana",
+  "license": "MIT"
+}
